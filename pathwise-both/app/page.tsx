@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { PlusCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -16,8 +16,11 @@ import { Greeting } from "@/components/greeting" // Import Greeting
 import { StreakCounter } from "@/components/streak-counter" // Import StreakCounter
 import { DailyFocus } from "@/components/daily-focus" // Import DailyFocus
 import { ProgressSummary } from "@/components/progress-summary" // Import ProgressSummary
+import { redirect } from "next/navigation"
 
 export default function Dashboard() {
+  redirect("/landing")
+
   const [streams, setStreams] = useLocalStorage<Stream[]>("task-streams", [
     {
       id: generateId(),
@@ -41,10 +44,6 @@ export default function Dashboard() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
-
-  useEffect(() => {
-    router.push("/landing")
-  }, [router])
 
   const handleCreateStream = () => {
     if (!newStreamName.trim()) {
